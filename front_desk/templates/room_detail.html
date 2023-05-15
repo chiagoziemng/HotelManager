@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Room Detail{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-8">
+            <h2>Room Detail</h2>
+        </div>
+        <div class="col-4 text-right">
+            <a href="{% url 'room_list' %}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
+            <h4>Room Information</h4>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Room Number:</th>
+                        <td>{{ room.room_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Floor Number:</th>
+                        <td>{{ room.floor_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Room Type:</th>
+                        <td>{{ room.room_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Max Occupancy:</th>
+                        <td>{{ room.max_occupancy }}</td>
+                    </tr>
+                    <tr>
+                        <th>View Type:</th>
+                        <td>{{ room.view_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Room Status:</th>
+                        <td>{{ room.room_status }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

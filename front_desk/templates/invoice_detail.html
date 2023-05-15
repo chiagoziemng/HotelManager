@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Invoice Detail{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-12">
+            <h2>Invoice Detail</h2>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
+            <h4>Guest: {{ invoice.guest }}</h4>
+            <p>Room: {{ invoice.room }}</p>
+            <p>Check-in Date: {{ invoice.check_in_date }}</p>
+            <p>Check-out Date: {{ invoice.check_out_date }}</p>
+            <p>Total Charge: {{ invoice.total_charge }}</p>
+            <p>Tax Amount: {{ invoice.tax_amount }}</p>
+            <p>Payment Method: {{ invoice.payment_method }}</p>
+            <p>Invoice Status: {{ invoice.invoice_status }}</p>
+            <div>
+                <a href="{% url 'invoice_update' invoice.pk %}" class="btn btn-sm btn-info">Edit</a>
+                <a href="{% url 'invoice_delete' invoice.pk %}" class="btn btn-sm btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

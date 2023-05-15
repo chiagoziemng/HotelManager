@@ -10,6 +10,9 @@ class Guest(models.Model):
     nationality = models.CharField(max_length=50)
     loyalty_status = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 class Room(models.Model):
     room_number = models.IntegerField()
     floor_number = models.IntegerField()
@@ -17,6 +20,11 @@ class Room(models.Model):
     max_occupancy = models.IntegerField()
     view_type = models.CharField(max_length=50)
     room_status = models.CharField(max_length=50)
+
+    def __str__(self):
+        return str(self.room_number)
+
+
 
 class Reservation(models.Model):
     guest = models.ForeignKey(Guest, on_delete=models.CASCADE)

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm Delete Maintenance Request{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-12">
+            <h2>Confirm Delete Maintenance Request</h2>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
+            <p>Are you sure you want to delete the maintenance request for room {{ maintenance_request.room }}?</p>
+
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a href="{% url 'maintenance_request_detail' pk=maintenance_request.pk %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

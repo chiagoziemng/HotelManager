@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Reservation{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-12">
+            <h2>Create Reservation</h2>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-8">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a href="{% url 'reservation_list' %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Room List{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-12">
+            <h2>Room List</h2>
+            <a href="{% url 'room_create' %}" class="btn btn-primary">Create Room</a>
+        </div>
+    </div>
+
+    <hr>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Room Number</th>
+                <th>Floor Number</th>
+                <th>Room Type</th>
+                <th>Max Occupancy</th>
+                <th>View Type</th>
+                <th>Room Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+                <tr>
+                    <td>{{ room.room_number }}</td>
+                    <td>{{ room.floor_number }}</td>
+                    <td>{{ room.room_type }}</td>
+                    <td>{{ room.max_occupancy }}</td>
+                    <td>{{ room.view_type }}</td>
+                    <td>{{ room.room_status }}</td>
+                    <td>
+                        <a href="{% url 'room_detail' room.pk %}" class="btn btn-sm btn-primary">View</a>
+                        <a href="{% url 'room_update' room.pk %}" class="btn btn-sm btn-secondary">Edit</a>
+                        <a href="{% url 'room_delete' room.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="7">No rooms available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

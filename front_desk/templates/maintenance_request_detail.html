@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Maintenance Request Details{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-12">
+            <h2>Maintenance Request Details</h2>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
+            <h4>Room: {{ maintenance_request.room }}</h4>
+            <p><strong>Description:</strong> {{ maintenance_request.request_description }}</p>
+            <p><strong>Status:</strong> {{ maintenance_request.request_status }}</p>
+
+            <a href="{% url 'maintenance_request_update' pk=maintenance_request.pk %}" class="btn btn-secondary">Edit</a>
+            <a href="{% url 'maintenance_request_delete' pk=maintenance_request.pk %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+{% endblock %}

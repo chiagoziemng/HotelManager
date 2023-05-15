@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Invoice List{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-12">
+            <h2>Invoice List</h2>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Guest</th>
+                        <th>Room</th>
+                        <th>Check-in Date</th>
+                        <th>Check-out Date</th>
+                        <th>Total Charge</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for invoice in invoices %}
+                    <tr>
+                        <td>{{ invoice.guest }}</td>
+                        <td>{{ invoice.room }}</td>
+                        <td>{{ invoice.check_in_date }}</td>
+                        <td>{{ invoice.check_out_date }}</td>
+                        <td>{{ invoice.total_charge }}</td>
+                        <td>
+                            <a href="{% url 'invoice_detail' invoice.pk %}" class="btn btn-sm btn-primary">View</a>
+                            <a href="{% url 'invoice_update' invoice.pk %}" class="btn btn-sm btn-info">Edit</a>
+                            <a href="{% url 'invoice_delete' invoice.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No invoices found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

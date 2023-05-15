@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Reservation Details{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-12">
+            <h2>Reservation Details</h2>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
+            <h4>Guest: {{ reservation.guest }}</h4>
+            <p>Room: {{ reservation.room }}</p>
+            <p>Check-in Date: {{ reservation.check_in_date }}</p>
+            <p>Check-out Date: {{ reservation.check_out_date }}</p>
+            <p>Number of Guests: {{ reservation.num_of_guests }}</p>
+            <p>Special Requests: {{ reservation.special_requests }}</p>
+            <p>Payment Status: {{ reservation.payment_status }}</p>
+        </div>
+    </div>
+{% endblock %}

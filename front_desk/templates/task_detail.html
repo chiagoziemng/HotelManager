@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Task Detail{% endblock %}
+
+{% block content %}
+    <div class="row mt-3">
+        <div class="col-12">
+            <h2>Task Detail</h2>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-12">
+            <dl class="row">
+                <dt class="col-sm-3">Task Name:</dt>
+                <dd class="col-sm-9">{{ task.task_name }}</dd>
+
+                <dt class="col-sm-3">Task Description:</dt>
+                <dd class="col-sm-9">{{ task.task_description }}</dd>
+
+                <dt class="col-sm-3">Task Status:</dt>
+                <dd class="col-sm-9">{{ task.task_status }}</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <a href="{% url 'task_list' %}" class="btn btn-secondary">Back to Task List</a>
+            <a href="{% url 'task_update' task.pk %}" class="btn btn-primary">Edit Task</a>
+            <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger">Delete Task</a>
+        </div>
+    </div>
+{% endblock %}

@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-xz3jz0=jhn12@53f+p&6rjq0mo&edy=%10qw%x5qxv2mnaullc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = ['https://hotelmanager-production.up.railway.app']
 
 
 # Application definition

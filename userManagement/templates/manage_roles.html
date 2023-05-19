@@ -1,0 +1,37 @@
+<!-- manage_roles.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+  <h2>User Role Management</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr>
+          <td>{{ user.username }}</td>
+          <td>{{ user.roles }}</td>
+          <td>
+            <form method="POST" action="{% url 'update_role' user_id=user.id %}">
+              {% csrf_token %}
+              <select name="new_role">
+                <option value="front_desk_manager">Front Desk Manager</option>
+                <option value="auditor">Auditor</option>
+                <option value="manager">Manager</option>
+                <option value="general_manager">General Manager</option>
+                <option value="supervisor">Supervisor</option>
+                <option value="owner">Owner</option>
+              </select>
+              <button type="submit">Update Role</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

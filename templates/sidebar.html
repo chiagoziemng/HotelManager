@@ -6,56 +6,28 @@
                 <li class="list-divider"></li>
                 <li class="submenu"> <a href="#"><i class="fas fa-suitcase"></i> <span> Front Desk </span> <span class="menu-arrow"></span></a>
                     <ul class="submenu_class" style="display: none;">
-                        <li><a href="{% url 'reservation_list' %}"> All Booking </a></li>
-                        <li><a href="edit-booking.html"> Edit Booking </a></li>
-                        <li><a href="{% url 'reservation_create' %}"> Add Booking </a></li>
-                    </ul>
-                </li>
-                <li class="submenu"> <a href="#"><i class="fas fa-user"></i> <span> Guest </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
+                        <li><a href="{% url 'reservation_list' %}"> All Reservation </a></li>
+                        <li><a href="{% url 'reservation_create' %}"> Add Reservation </a></li>
                         <li><a href="{% url 'guest_list' %}"> All Guest </a></li>
-                        <li><a href="add-customer.html"> Add Guest </a></li>
-                    </ul>
-                </li>
-                <li class="submenu"> <a href="#"><i class="fas fa-key"></i> <span> Rooms </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
                         <li><a href="{% url 'room_list' %}">All Rooms </a></li>
-                        <li><a href="edit-room.html"> Edit Rooms </a></li>
-                        <li><a href="add-room.html"> Add Rooms </a></li>
-                    </ul>
-                </li>
-                <li class="submenu"> <a href="#"><i class="fas fa-user"></i> <span> Staff </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
-                        <li><a href="all-staff.html">All Staff </a></li>
-                        <li><a href="edit-staff.html"> Edit Staff </a></li>
-                        <li><a href="add-staff.html"> Add Staff </a></li>
-                    </ul>
-                </li>
-                <li class="submenu"> <a href="#"><i class="far fa-money-bill-alt"></i> <span> Accounts </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
                         <li><a href="{% url 'invoice_list' %}">All Invoices </a></li>
                         <li><a href="{% url 'invoice_create' %}">Create Invoices </a></li>
                     </ul>
                 </li>
-                <li class="submenu"> <a href="#"><i class="fas fa-share-alt"></i> <span> Housekeeping </span> <span class="menu-arrow"></span></a>
+                <!-- <li class="submenu"> <a href="#"><i class="fas fa-user"></i> <span> Guest </span> <span class="menu-arrow"></span></a>
+                  
+                </li>
+                <li class="submenu"> <a href="#"><i class="fas fa-key"></i> <span> Rooms </span> <span class="menu-arrow"></span></a>
+                   
+                </li> -->
+                <li class="submenu"> <a href="#"><i class="fas fa-user"></i> <span> Staff Management </span> <span class="menu-arrow"></span></a>
                     <ul class="submenu_class" style="display: none;">
-                        <li><a href="{% url 'task_list' %}"><span> All task </span></a></li>
-                        <li><a href="{% url 'task_create' %}"><span> Add task </span></a></li>
+                        <li><a href="{% url 'user_list' %}">All Staff </a></li>
+                        <li><a href="{% url 'manage_roles' %}"> Manage Roles </a></li>
+                        <li><a href="{% url 'register' %}"> Add Staff </a></li>
                     </ul>
                 </li>
-                <li class="submenu"> <a href="#"><i class="fas fa-cog"></i> <span> Maintenance </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
-                        <li><a href="{% url 'maintenance_request_list' %}"><span> All Maintenance </span></a></li>
-                        <li><a href="{% url 'maintenance_request_create' %}"><span> Add Maintenance </span></a></li>
-                    </ul>
-                </li>
-                <li class="submenu"> <a href="#"><i class="fas fa-warehouse"></i> <span> Inventory </span> <span class="menu-arrow"></span></a>
-                    <ul class="submenu_class" style="display: none;">
-                        <li><a href="{% url 'task_list' %}"><span> All task </span></a></li>
-                        <li><a href="{% url 'task_create' %}"><span> Add task </span></a></li>
-                    </ul>
-                </li>
-                <li> <a href="calendar.html"><i class="fas fa-calendar-alt"></i> <span>Calendar</span></a> </li>
+                <!-- <li> <a href="calendar.html"><i class="fas fa-calendar-alt"></i> <span>Calendar</span></a> </li>
                 <li> <a href="activities.html"><i class="far fa-bell"></i> <span>Activities</span></a> </li>
                 <li class="submenu"> <a href="#"><i class="fe fe-table"></i> <span> Reports </span> <span class="menu-arrow"></span></a>
                     <ul class="submenu_class" style="display: none;">
@@ -63,7 +35,7 @@
                         <li><a href="invoice-reports.html">Invoice Report </a></li>
                     </ul>
                 </li>
-              
+               -->
                
             </ul>
         </div>

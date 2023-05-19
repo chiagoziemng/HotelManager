@@ -44,7 +44,11 @@ INSTALLED_APPS = [
 
     #
     'front_desk',
+    'userManagement',
 ]
+
+AUTH_USER_MODEL = 'userManagement.CustomUser'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

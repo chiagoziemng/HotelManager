@@ -1,154 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Guest, Room, Reservation, Invoice, HousekeepingTask, MaintenanceRequest, Inventory
-from .forms import GuestForm, RoomForm, ReservationForm, InvoiceForm, HousekeepingTaskForm, MaintenanceRequestForm, InventoryForm
-
-# Inventory section
-def inventory_list(request):
-    inventories = Inventory.objects.all()
-    return render(request, 'inventory_list.html', {'inventories': inventories})
-
-def inventory_detail(request, pk):
-    inventory = Inventory.objects.get(pk=pk)
-    return render(request, 'inventory_detail.html', {'inventory': inventory})
-
-def inventory_create(request):
-    if request.method == 'POST':
-        form = InventoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('inventory_list')
-    else:
-        form = InventoryForm()
-    return render(request, 'inventory_create.html', {'form': form})
-
-def inventory_update(request, pk):
-    inventory = Inventory.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = InventoryForm(request.POST, instance=inventory)
-        if form.is_valid():
-            form.save()
-            return redirect('inventory_detail', pk=pk)
-    else:
-        form = InventoryForm(instance=inventory)
-    return render(request, 'inventory_update.html', {'form': form, 'inventory': inventory})
-
-def inventory_delete(request, pk):
-    inventory = Inventory.objects.get(pk=pk)
-    if request.method == 'POST':
-        inventory.delete()
-        return redirect('inventory_list')
-    return render(request, 'inventory_confirm_delete.html', {'inventory': inventory})
-
-# maintenance section
-def maintenance_request_list(request):
-    maintenance_requests = MaintenanceRequest.objects.all()
-    return render(request, 'maintenance_request_list.html', {'maintenance_requests': maintenance_requests})
-
-def maintenance_request_detail(request, pk):
-    maintenance_request = get_object_or_404(MaintenanceRequest, pk=pk)
-    return render(request, 'maintenance_request_detail.html', {'maintenance_request': maintenance_request})
-
-def maintenance_request_create(request):
-    if request.method == 'POST':
-        form = MaintenanceRequestForm(request.POST)
-        if form.is_valid():
-            maintenance_request = form.save()
-            return redirect('maintenance_request_detail', pk=maintenance_request.pk)
-    else:
-        form = MaintenanceRequestForm()
-    return render(request, 'maintenance_request_create.html', {'form': form})
-
-def maintenance_request_update(request, pk):
-    maintenance_request = get_object_or_404(MaintenanceRequest, pk=pk)
-    if request.method == 'POST':
-        form = MaintenanceRequestForm(request.POST, instance=maintenance_request)
-        if form.is_valid():
-            maintenance_request = form.save()
-            return redirect('maintenance_request_detail', pk=maintenance_request.pk)
-    else:
-        form = MaintenanceRequestForm(instance=maintenance_request)
-    return render(request, 'maintenance_request_update.html', {'form': form, 'maintenance_request': maintenance_request})
-
-def maintenance_request_delete(request, pk):
-    maintenance_request = get_object_or_404(MaintenanceRequest, pk=pk)
-    if request.method == 'POST':
-        maintenance_request.delete()
-        return redirect('maintenance_request_list')
-    return render(request, 'maintenance_request_confirm_delete.html', {'maintenance_request': maintenance_request})
-
-# HousekeepingTask section
-def task_list(request):
-    tasks = HousekeepingTask.objects.all()
-    return render(request, 'task_list.html', {'tasks': tasks})
-
-def task_detail(request, pk):
-    task = get_object_or_404(HousekeepingTask, pk=pk)
-    return render(request, 'task_detail.html', {'task': task})
-
-def task_create(request):
-    if request.method == 'POST':
-        form = HousekeepingTaskForm(request.POST)
-        if form.is_valid():
-            task = form.save()
-            return redirect('task_detail', pk=task.pk)
-    else:
-        form = HousekeepingTaskForm()
-    return render(request, 'task_create.html', {'form': form})
-
-def task_update(request, pk):
-    task = get_object_or_404(HousekeepingTask, pk=pk)
-    if request.method == 'POST':
-        form = HousekeepingTaskForm(request.POST, instance=task)
-        if form.is_valid():
-            form.save()
-            return redirect('task_detail', pk=task.pk)
-    else:
-        form = HousekeepingTaskForm(instance=task)
-    return render(request, 'task_update.html', {'form': form, 'task': task})
-
-def task_delete(request, pk):
-    task = get_object_or_404(HousekeepingTask, pk=pk)
-    if request.method == 'POST':
-        task.delete()
-        return redirect('task_list')
-    return render(request, 'task_confirm_delete.html', {'task': task})
-
-# invoice section
-def invoice_list(request):
-    invoices = Invoice.objects.all()
-    return render(request, 'invoice_list.html', {'invoices': invoices})
-
-def invoice_detail(request, pk):
-    invoice = get_object_or_404(Invoice, pk=pk)
-    return render(request, 'invoice_detail.html', {'invoice': invoice})
-
-def invoice_create(request):
-    if request.method == 'POST':
-        form = InvoiceForm(request.POST)
-        if form.is_valid():
-            invoice = form.save()
-            return redirect('invoice_detail', pk=invoice.pk)
-    else:
-        form = InvoiceForm()
-    return render(request, 'invoice_create.html', {'form': form})
-
-def invoice_update(request, pk):
-    invoice = get_object_or_404(Invoice, pk=pk)
-    if request.method == 'POST':
-        form = InvoiceForm(request.POST, instance=invoice)
-        if form.is_valid():
-            invoice = form.save()
-            return redirect('invoice_detail', pk=invoice.pk)
-    else:
-        form = InvoiceForm(instance=invoice)
-    return render(request, 'invoice_update.html', {'form': form, 'invoice': invoice})
-
-def invoice_delete(request, pk):
-    invoice = get_object_or_404(Invoice, pk=pk)
-    if request.method == 'POST':
-        invoice.delete()
-        return redirect('invoice_list')
-    return render(request, 'invoice_confirm_delete.html', {'invoice': invoice})
+from .models import Guest, Room, Reservation, Invoice
+from .forms import GuestForm, RoomForm, ReservationForm, InvoiceForm
 
 
 #Reservation  section
@@ -273,4 +125,43 @@ def guest_delete(request, pk):
         guest.delete()
         return redirect('guest_list')
     return render(request, 'guest_confirm_delete.html', {'guest': guest})
+
+
+# invoice section
+def invoice_list(request):
+    invoices = Invoice.objects.all()
+    return render(request, 'invoice_list.html', {'invoices': invoices})
+
+def invoice_detail(request, pk):
+    invoice = get_object_or_404(Invoice, pk=pk)
+    return render(request, 'invoice_detail.html', {'invoice': invoice})
+
+def invoice_create(request):
+    if request.method == 'POST':
+        form = InvoiceForm(request.POST)
+        if form.is_valid():
+            invoice = form.save()
+            return redirect('invoice_detail', pk=invoice.pk)
+    else:
+        form = InvoiceForm()
+    return render(request, 'invoice_create.html', {'form': form})
+
+def invoice_update(request, pk):
+    invoice = get_object_or_404(Invoice, pk=pk)
+    if request.method == 'POST':
+        form = InvoiceForm(request.POST, instance=invoice)
+        if form.is_valid():
+            invoice = form.save()
+            return redirect('invoice_detail', pk=invoice.pk)
+    else:
+        form = InvoiceForm(instance=invoice)
+    return render(request, 'invoice_update.html', {'form': form, 'invoice': invoice})
+
+def invoice_delete(request, pk):
+    invoice = get_object_or_404(Invoice, pk=pk)
+    if request.method == 'POST':
+        invoice.delete()
+        return redirect('invoice_list')
+    return render(request, 'invoice_confirm_delete.html', {'invoice': invoice})
+
 

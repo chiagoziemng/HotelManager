@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>User Detail</h2>
+  <table>
+    <tr>
+      <th>Username:</th>
+      <td>{{ user.username }}</td>
+    </tr>
+    <tr>
+      <th>Email:</th>
+      <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+      <th>User Roles:</th>
+      <td>{{ user.get_roles_display }}</td>
+    </tr>
+    <!-- Add more user details here if needed -->
+  </table>
+  <a href="{% url 'update_user' user_id=user.id %}">Edit</a>
+  <a href="{% url 'delete_user' user_id=user.id %}">Delete</a>
+{% endblock %}

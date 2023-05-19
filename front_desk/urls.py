@@ -30,20 +30,6 @@ urlpatterns = [
     path('invoices/<int:pk>/update/', views.invoice_update, name='invoice_update'),
     path('invoices/<int:pk>/delete/', views.invoice_delete, name='invoice_delete'),
 
-        # HousekeepingTask URLs
-    path('task_list/', views.task_list, name='task_list'),
-    path('task_detail/<int:pk>/', views.task_detail, name='task_detail'),
-    path('task_create/', views.task_create, name='task_create'),
-    path('task_update/<int:pk>/', views.task_update, name='task_update'),
-    path('task_delete/<int:pk>/', views.task_delete, name='task_delete'),
-
-       # Maintenance Request URLs
-    path('maintenance_request/', views.maintenance_request_list, name='maintenance_request_list'),
-    path('maintenance_request/create/', views.maintenance_request_create, name='maintenance_request_create'),
-    path('maintenance_request/<int:pk>/', views.maintenance_request_detail, name='maintenance_request_detail'),
-    path('maintenance_request/<int:pk>/update/', views.maintenance_request_update, name='maintenance_request_update'),
-    path('maintenance_request/<int:pk>/delete/', views.maintenance_request_delete, name='maintenance_request_delete'),
-
 
 
 ]

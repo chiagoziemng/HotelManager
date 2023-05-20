@@ -57,7 +57,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-12">
-                      <table class="table">
+                      <table class="table table-bordered">
                         <thead>
                           <tr style="background-color:#a0b2ce">
                             <th></th>
@@ -74,26 +74,67 @@
                           </tr>
                         </thead>
                         <tbody class="bg-white">
-                          <td>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            </div>                            
-                          </td>
-                          <td>Jennifer Bretzing</td>
-                          <td>2</td>
-                          <td>~3.30 PM</td>
-                          <td>Pay Now: $580.56</td>
-                          <td>1 of 2</td>
-                          <td>5/16/2014</td>
-                          <td>5/18/2014</td>
-                          <td>Room 1</td>
-                          <td>...</td>
-                          <td>Clean</td>
+                          {% for reservation in reservations %}
+                          {% if reservation.event_type == "Arriving" %}
+                              <tr>
+                                <td>
+                                  <input type="checkbox" id="arrival_{{ reservation.id }}" name="arrival_checkbox" {% if reservation.checking == 'Checked In' %}checked{% endif %}>
+                              </td>
+                              <td><a href="{% url 'reservation_detail' reservation.id %}">{{ reservation.guest }}</a></td>
+                              <td>{{ reservation.num_of_guests }}</td>
+                              <td>
+                                {% if reservation.checking == 'Checked In' %}
+                                    <span class="tick">&#10004;</span>
+                                {% else %}
+                                    ~
+                                {% endif %}
+                            </td>
+                              <td>{{ reservation.total_charge }}</td>
+                              <td>{{ reservation.num_of_nights }}</td>
+                              <td>{{ reservation.check_in_date }}</td>
+                              <td>{{ reservation.check_out_date }}</td>
+                              <td>{{ reservation.room }}</td>
+                              <td>.....</td>
+                              <td>....</td>
+                              </tr>
+          
+                              <script>
+                                document.getElementById('arrival_{{ reservation.id }}').addEventListener('change', function() {
+                                    var checkbox = this;
+                                    var reservationId = checkbox.id.split('_')[1];
+          
+                                    if (checkbox.checked) {
+                                        fetch('/front_desk/reservations/' + reservationId + '/checkin/', {
+                                            method: 'POST',
+                                            headers: {
+                                                'X-CSRFToken': '{{ csrf_token }}',
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({ checking: 'Checked In' })
+                                        })
+                                        .then(function(response) {
+                                            if (!response.ok) {
+                                                throw new Error('Error updating check-in status');
+                                            }
+                                        })
+                                        .catch(function(error) {
+                                            console.log(error);
+                                        });
+                                    }
+                                });
+                            </script>
+                          {% endif %}
+                      {% empty %}
+                          <tr>
+                              <td colspan="8">No arriving reservations found.</td>
+                          </tr>
+                      {% endfor %}
                         </tbody>
                       </table>
                     </div>
+
                     <div class="col-12">
-                      <table class="table">
+                      <table class="table table-bordered">
                         <thead style="background-color:#a0b2ce">
                           <tr >
                             <th></th>
@@ -110,30 +151,68 @@
                           </tr>
                         </thead>
                         <tbody class="bg-white">
-                          <!-- Add rows for departing guests here -->
-                          <td>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            </div>                            
-                          </td>
-                          <td>John Smith</td>
-                          <td>2</td>
-                          <td>No</td>
-                          <td>Pay Now: $580.56</td>
-                          <td>2 of 2</td>
-                          <td>5/16/2014</td>
-                          <td>5/18/2014</td>
-                          <td>Room 4</td>
-                          <td>...</td>
-                          <td>Clean</td>
+                          {% for reservation in reservations %}
+                          {% if reservation.event_type == "Departing" %}
+                              <tr>
+                                <td>
+                                  <input type="checkbox" id="departure_{{ reservation.id }}" name="departure_checkbox" {% if reservation.checking == 'Checked Out' %}checked{% endif %}>
+                              </td>
+                              <td><a href="{% url 'reservation_detail' reservation.id %}">{{ reservation.guest }}</a></td>
+                              <td>{{ reservation.num_of_guests }}</td>
+                                  <td>
+                                    {% if reservation.checking == 'Checked Out' %}
+                                        <span class="tick">&#10004;</span>
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </td>
+                                  
+                                <td>{{ reservation.total_charge }}</td>
+                                <td>{{ reservation.num_of_nights }}</td>
+                                <td>{{ reservation.check_in_date }}</td>
+                                <td>{{ reservation.check_out_date }}</td>
+                                <td>{{ reservation.room }}</td>
+                                <td>.....</td>
+                                <td>....</td>
+                              </tr>
+                              <script>
+                                document.getElementById('departure_{{ reservation.id }}').addEventListener('change', function() {
+                                    var checkbox = this;
+                                    var reservationId = checkbox.id.split('_')[1];
+          
+                                    if (checkbox.checked) {
+                                        fetch('/front_desk/reservations/' + reservationId + '/checkout/', {
+                                            method: 'POST',
+                                            headers: {
+                                                'X-CSRFToken': '{{ csrf_token }}',
+                                                'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify({ checking: 'Checked Out' })
+                                        })
+                                        .then(function(response) {
+                                            if (!response.ok) {
+                                                throw new Error('Error updating check-out status');
+                                            }
+                                        })
+                                        .catch(function(error) {
+                                            console.log(error);
+                                        });
+                                    }
+                                });
+                            </script>
+                          {% endif %}
+                      {% empty %}
+                          <tr>
+                              <td colspan="8">No departing reservations found.</td>
+                          </tr>
+                      {% endfor %}
                         </tbody>
                       </table>
                     </div>
                     <div class="col-12">
-                      <table class="table">
+                      <table class="table table-bordered">
                         <thead style="background-color:#a0b2ce">
                           <tr>
-                            <th></th>
                             <th class="h5">STAYING OVER</th>
                             <th>GUESTS</th>
                             <th>DAY</th>
@@ -147,22 +226,27 @@
                           </tr>
                         </thead>
                         <tbody class="bg-white">
-                          <!-- Add rows for guests staying over here -->
-                          <td>
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            </div>                            
-                          </td>
-                          <td>Jared Christensen</td>
-                          <td>2</td>
-                          <td>3</td>
-                          <td>Pay Now: $580.56</td>
-                          <td>1 of 2</td>
-                          <td>5/16/2014</td>
-                          <td>5/18/2014</td>
-                          <td>Room 10</td>
-                          <td>...</td>
-                          <td>Clean</td>
+                          {% for reservation in reservations %}
+                          {% if reservation.event_type == "Staying Over" %}
+                              <tr>
+                                <td><a href="{% url 'reservation_detail' reservation.id %}">{{ reservation.guest }}</a></td>
+                                <td>{{ reservation.num_of_guests }}</td>
+                                  <td>{{ reservation.num_of_nights_spent }}</td>
+                                  <td>{{ reservation.total_charge }}</td>
+                                  <td>{{ reservation.num_of_nights }}</td>
+                                  <td>{{ reservation.check_in_date }}</td>
+                                  <td>{{ reservation.check_out_date }}</td>
+                                  <td>{{ reservation.room }}</td>
+                                  <td>.....</td>
+                                  <td>.....</td>
+                                  
+                              </tr>
+                          {% endif %}
+                      {% empty %}
+                          <tr>
+                              <td colspan="9">No staying over reservations found.</td>
+                          </tr>
+                      {% endfor %}
                         </tbody>
                       </table>
                     </div>
@@ -173,32 +257,6 @@
         </div>
     </div>
 
-    <!-- <div class="row">
-        <div class="col-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Guest</th>
-                        <th>Room</th>
-                        <th>Check-in Date</th>
-                        <th>Check-out Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for reservation in reservations %}
-                        <tr>
-                            <td>{{ reservation.guest }}</td>
-                            <td>{{ reservation.room }}</td>
-                            <td>{{ reservation.check_in_date }}</td>
-                            <td>{{ reservation.check_out_date }}</td>
-                        </tr>
-                    {% empty %}
-                        <tr>
-                            <td colspan="4">No reservations found.</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div> -->
+
+    
 {% endblock %}

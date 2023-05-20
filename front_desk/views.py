@@ -1,12 +1,65 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Guest, Room, Reservation, Invoice
-from .forms import GuestForm, RoomForm, ReservationForm, InvoiceForm
+from django.utils import timezone
+# for checking and checkout
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+from .models import Guest, Room, Reservation
+from .forms import GuestForm, RoomForm, ReservationForm
+
+
+@csrf_exempt
+def checkin(request, reservation_id):
+    if request.method == 'POST':
+        try:
+            reservation = Reservation.objects.get(id=reservation_id)
+            reservation.checking = 'Checked In'
+            reservation.save()
+            return JsonResponse({'status': 'success'})
+        except Reservation.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Reservation not found'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
+
+@csrf_exempt
+def checkout(request, reservation_id):
+    if request.method == 'POST':
+        try:
+            reservation = Reservation.objects.get(id=reservation_id)
+            reservation.checking = 'Checked Out'
+            reservation.save()
+            return JsonResponse({'status': 'success'})
+        except Reservation.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Reservation not found'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 
 
 #Reservation  section
 
 def reservation_list(request):
     reservations = Reservation.objects.all()
+    for reservation in reservations:
+        """
+        we iterate over the reservations and 
+        calculate the num_of_nights by subtracting the check_in_date from the check_out_date using the days attribute.
+        """
+        num_of_nights = (reservation.check_out_date - reservation.check_in_date).days + 1
+        """
+            we calculate the num_of_nights and current_night. The num_of_nights is the total number of nights for the reservation, 
+            and the current_night is the number of nights elapsed from the check-in date until the current date.
+        """
+        current_night = (timezone.now().date() - reservation.check_in_date).days + 1
+        reservation.num_of_nights = f"{current_night} of {num_of_nights} nights"
+
+        if current_night == num_of_nights:
+            reservation.event_type = "Departing"
+        elif current_night > 1:
+            reservation.event_type = "Staying Over"
+            reservation.num_of_days_stayed = current_night - 1
+        else:
+            reservation.event_type = "Arriving"
+    
     return render(request, 'reservation_list.html', {'reservations': reservations})
 
 def reservation_detail(request, pk):
@@ -17,7 +70,10 @@ def reservation_create(request):
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
-            reservation = form.save()
+            reservation = form.save(commit=False)  # Create a reservation object without saving to the database yet
+            num_of_days = (reservation.check_out_date - reservation.check_in_date).days
+            reservation.total_charge = reservation.room.room_price * num_of_days
+            reservation.save()  # Save the reservation with the calculated total_charge
             return redirect('reservation_detail', pk=reservation.pk)
     else:
         form = ReservationForm()
@@ -42,14 +98,6 @@ def reservation_delete(request, pk):
     return render(request, 'reservation_confirm_delete.html', {'reservation': reservation})
 
 #Room section
-"""
-    room_list: Displays a list of all rooms.
-    room_detail: Shows the details of a specific room.
-    room_create: Handles the creation of a new room.
-    room_update: Handles updating an existing room.
-    room_delete: Handles deleting a room.
-"""
-
 def room_list(request):
     rooms = Room.objects.all()
     return render(request, 'room_list.html', {'rooms': rooms})
@@ -125,43 +173,4 @@ def guest_delete(request, pk):
         guest.delete()
         return redirect('guest_list')
     return render(request, 'guest_confirm_delete.html', {'guest': guest})
-
-
-# invoice section
-def invoice_list(request):
-    invoices = Invoice.objects.all()
-    return render(request, 'invoice_list.html', {'invoices': invoices})
-
-def invoice_detail(request, pk):
-    invoice = get_object_or_404(Invoice, pk=pk)
-    return render(request, 'invoice_detail.html', {'invoice': invoice})
-
-def invoice_create(request):
-    if request.method == 'POST':
-        form = InvoiceForm(request.POST)
-        if form.is_valid():
-            invoice = form.save()
-            return redirect('invoice_detail', pk=invoice.pk)
-    else:
-        form = InvoiceForm()
-    return render(request, 'invoice_create.html', {'form': form})
-
-def invoice_update(request, pk):
-    invoice = get_object_or_404(Invoice, pk=pk)
-    if request.method == 'POST':
-        form = InvoiceForm(request.POST, instance=invoice)
-        if form.is_valid():
-            invoice = form.save()
-            return redirect('invoice_detail', pk=invoice.pk)
-    else:
-        form = InvoiceForm(instance=invoice)
-    return render(request, 'invoice_update.html', {'form': form, 'invoice': invoice})
-
-def invoice_delete(request, pk):
-    invoice = get_object_or_404(Invoice, pk=pk)
-    if request.method == 'POST':
-        invoice.delete()
-        return redirect('invoice_list')
-    return render(request, 'invoice_confirm_delete.html', {'invoice': invoice})
-
 

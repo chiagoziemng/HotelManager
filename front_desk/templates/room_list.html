@@ -5,14 +5,12 @@
 {% block content %}
     <div class="row mt-3">
         <div class="col-12">
-            <h2>Room List</h2>
+            <h1>Room List</h1>
             <a href="{% url 'room_create' %}" class="btn btn-primary">Create Room</a>
         </div>
     </div>
 
     <hr>
-
-    <h1>Room List</h1>
     <table class="table">
         <thead>
             <tr>
@@ -21,6 +19,7 @@
                 <th>Max Occupancy</th>
                 <th>Room Price</th>
                 <th>Room Status</th>
+                <th>Availability</th>
                 <th>Room Status</th>
             </tr>
         </thead>
@@ -32,6 +31,7 @@
                 <td>{{ room.max_occupancy }}</td>
                 <td>{{ room.room_price }}</td>
                 <td>{{ room.room_status }}</td>
+                <td>{{ room.availability}}</td>
                 <td>
                     <a href="{% url 'room_detail' room.pk %}" class="btn btn-sm btn-primary">View</a>
                     <a href="{% url 'room_update' room.pk %}" class="btn btn-sm btn-secondary">Edit</a>

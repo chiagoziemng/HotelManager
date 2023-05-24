@@ -51,12 +51,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 
-    #
-        'sms',
     'bar',
     # 'front_desk',
     'userManagement',
-    'import_export',
+    # 'import_export',
 ]
 
 AUTH_USER_MODEL = 'userManagement.CustomUser'

@@ -1,1 +1,2 @@
 pip install python-decouple
+backports.zoneinfo==0.2.1;python_version<"3.9"

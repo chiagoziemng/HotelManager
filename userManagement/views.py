@@ -15,16 +15,24 @@ def is_front_desk_manager(user):
 def is_auditor(user):
     return user.roles == 'auditor'
 
+# Custom test function to check if user has the "auditor" role
+def is_bar_staff(user):
+    return user.roles == 'bar_staff'
+
+# Custom test function to check if user has the "auditor" role
+def is_owner(user):
+    return user.roles == 'owner'
+
 
 @login_required
-@user_passes_test(lambda u: u.is_superuser)  # Only accessible by superusers
+# @user_passes_test(lambda u: u.is_superuser)  # Only accessible by superusers
 def manage_roles(request):
     users = CustomUser.objects.exclude(is_superuser=True)  # Exclude superadmin users
     return render(request, 'manage_roles.html', {'users': users})
 
 
 @login_required
-@user_passes_test(lambda u: u.is_superuser)  # Only accessible by superusers
+# @user_passes_test(lambda u: u.is_superuser)  # Only accessible by superusers
 def update_role(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
     if request.method == 'POST':
@@ -62,7 +70,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('user_list')  # Redirect to the desired page after successful login
+            return redirect('dashboard')  # Redirect to the desired page after successful login
         else:
             messages.error(request, 'Invalid username or password.')
     
@@ -81,7 +89,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('dashboard')
+            return redirect('user_list')
     else:
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
@@ -99,7 +107,7 @@ def profile(request):
 
 
 @login_required
-@user_passes_test(lambda u: is_front_desk_manager(u) or is_auditor(u))
+#@user_passes_test(lambda u: is_front_desk_manager(u) or is_auditor(u))
 def dashboard(request):
     return render(request, 'dashboard.html')
 

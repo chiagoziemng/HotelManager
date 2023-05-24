@@ -10,6 +10,8 @@ class CustomUser(AbstractUser):
         ('general_manager', 'General Manager'),
         ('supervisor', 'Supervisor'),
         ('owner', 'Owner'),
+        ('bar_staff', 'Bar_staff'),
+
     )
     roles = models.CharField(max_length=20, choices=ROLES_CHOICES)
 

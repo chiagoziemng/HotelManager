@@ -4,12 +4,29 @@
             <ul>
                 <li class="active"> <a href="#"><i class="fas fa-tachometer-alt"></i> <span>Pameec</span></a> </li>
                 <li class="list-divider"></li>
-                <li class="submenu"> <a href="#"><i class="fas fa-suitcase"></i> <span> Front Desk </span> <span class="menu-arrow"></span></a>
+                <!-- <li class="submenu"> <a href="#"><i class="fas fa-suitcase"></i> <span> Front Desk </span> <span class="menu-arrow"></span></a>
                     <ul class="submenu_class" style="display: none;">
-                        <li><a href="{% url 'reservation_list' %}"> All Reservation </a></li>
-                        <li><a href="{% url 'reservation_create' %}"> Add Reservation </a></li>
-                        <li><a href="{% url 'guest_list' %}"> All Guest </a></li>
-                        <li><a href="{% url 'room_list' %}">All Rooms </a></li>
+                        <li><a href=""> All Reservation </a></li>
+                        <li><a href=""> Add Reservation </a></li>
+                        <li><a href=""> All Guest </a></li>
+                        <li><a href="">All Rooms </a></li>
+                    </ul>
+                </li> -->
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#revenueModal"><i class="fas fa-chart-line"></i> <span>Revenue Analysis</span></a>
+                  </li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#reservationModal"><i class="fas fa-list"></i> <span>Front Desk</span></a>
+                  </li>
+                  
+                <li class="submenu"> <a href="#"><i class="fas fa-glass-martini-alt"></i> <span> Bar </span> <span class="menu-arrow"></span></a>
+                    <ul class="submenu_class" style="display: none;">
+                        <li><a href="{% url 'drink_list' %}"> All Drinks </a></li>
+                        <li><a href="{% url 'add_stock' %}"> Add Drink Stock </a></li>
+                        <li><a href="{% url 'reduce_stock' %}">  Manage Drink </a></li>
+                        <li><a href="{% url 'sale_list' %}">Add sales </a></li>
+                        <li><a href="{% url 'debt_list' %}">Manage  Debtors </a></li>
+                        <li><a href="{% url 'sale_report' %}">View Sale Report </a></li>
                     </ul>
                 </li>
                 <!-- 
@@ -22,8 +39,81 @@
                         <li><a href="{% url 'manage_roles' %}"> Manage Roles </a></li>
                         <li><a href="{% url 'register' %}"> Add Staff </a></li>
                     </ul>
-                </li>   
+                </li>
+                
+                  
+                <!-- <li>
+                    <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+                  </li> -->
+                  <li>
+                    <a href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt"></i> <span>Logout</span></a>
+                  </li>   
             </ul>
         </div>
     </div>
 </div>
+
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logoutModalLabel">Logout Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to logout?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Reservation Modal -->
+<div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="reservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reservationModalLabel">Unable to Connect</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Link the online Booking system with the front desk controller for activation.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Revenue Modal -->
+<div class="modal fade" id="revenueModal" tabindex="-1" role="dialog" aria-labelledby="revenueModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="revenueModalLabel">Unable to connect</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Activate Tier 1 and Tier 2.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+
+
+
+

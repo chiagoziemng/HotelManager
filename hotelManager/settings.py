@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'bar',
     # 'front_desk',
     'userManagement',
-    # 'import_export',
+    'import_export',
 ]
 
 AUTH_USER_MODEL = 'userManagement.CustomUser'
@@ -95,12 +95,12 @@ WSGI_APPLICATION = 'hotelManager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 DATABASES = {
     'default': {

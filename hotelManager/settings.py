@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from decouple import config
+
 
 # Update database configuration from $DATABASE_URL.
 import dj_database_url
@@ -26,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-xz3jz0=jhn12@53f+p&6rjq0mo&edy=%10qw%x5qxv2mnaullc'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -105,13 +107,14 @@ WSGI_APPLICATION = 'hotelManager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'HYY6c7vRoCc2ucvEDtyD',
-        'HOST': 'containers-us-west-172.railway.app',
-        'PORT': '7401',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
+
 
 
 
@@ -171,9 +174,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # https://pypi.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-TWILIO_ACCOUNT_SID = 'ACaa5241e876595ba4f56eebac7889f8bd'
-TWILIO_AUTH_TOKEN = '7a1e57110503685e1bdaede93c462db5'
-TWILIO_PHONE_NUMBER = '+13252525420'
-#AFRICASTALKING_SENDER_ID = 'your_sender_id'  # Optional, set if you have a custom sender ID
+TWILIO_ACCOUNT_SID = config('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = config('TWILIO_AUTH_TOKEN')
+TWILIO_PHONE_NUMBER = config('TWILIO_PHONE_NUMBER')
+
 
 

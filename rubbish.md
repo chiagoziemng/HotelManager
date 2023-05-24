@@ -1,4 +1,6 @@
-
+backports.zoneinfo==0.2.1
+#africastalking==1.2.5
+#aiohttp==3.8.4
     <h1>Reservation List</h1>
     <table class="table table-bordered">
         <thead>
